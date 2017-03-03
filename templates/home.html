@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<h1>Watson Conversation Manager</h1>
+
+<h3>Workspaces:</h3>
+{% for workspace in workspaces: %}
+<p><a href="/workspace/{{ workspace['workspace_id'] }}">{{ workspace['name'] }}</a></p>
+{% endfor %}
+
+{% endblock %}

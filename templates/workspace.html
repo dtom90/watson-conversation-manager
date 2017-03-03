@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block title %}{{workspace['name']}}{% endblock %}
+{% block content %}
+
+<h1>{{workspace['name']}}</h1>
+<h3><strong>Description: </strong>{{workspace['description']}}</h3>
+<br>
+<h4>Intents</h4>
+<table class="table">
+    <tr>
+        {% for intent in workspace['intents'] %}
+        <th>{{ intent['intent'] }}</th>
+        {% endfor %}
+    </tr>
+    {% for ex in range(max_examples) %}
+    <tr>
+        {% for intent in workspace['intents'] %}
+        <td>{{ intent['examples'][ex]['text'] if ex < intent['examples']|length }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+<br><br>
+<h4>Workspace JSON:</h4>
+<div class="json">
+
+</div>
+
+
+<script type="text/javascript" src="{{ url_for('static', filename='json-formatter.js') }}"></script>
+<script>
+    const myJSON = {{workspace | tojson}};
+    const formatter = new JSONFormatter(myJSON);
+    document.querySelector(".json").appendChild(formatter.render());
+</script>
+{% endblock %}
