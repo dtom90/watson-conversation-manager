@@ -5,6 +5,36 @@
 <h1>{{workspace['name']}}</h1>
 <h3><strong>Description: </strong>{{workspace['description']}}</h3>
 <br>
+<p>
+<h4>Test</h4>
+
+{% from "_formhelpers.html" import render_field %}
+<form class="form-inline">
+    {{ render_field(form.utterance) }}
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+{% if intents: %}
+<h4>Intents from input utterance "{{utterance}}":</h4>
+<table class="table table-bordered">
+    <tr>
+        <th class="col-md-1">Intent</th>
+        {% for intent in intents %}
+        <td>{{ intent['intent'] }}</td>
+        {% endfor %}
+    </tr>
+
+    <tr>
+        <th class="col-md-1">Confidence</th>
+        {% for intent in intents %}
+        <td>{{ intent['confidence'] }}</td>
+        {% endfor %}
+    </tr>
+</table>
+{% endif %}
+
+</p>
+<br>
 <h4>Intents</h4>
 <table class="table">
     <tr>

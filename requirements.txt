@@ -1,3 +1,4 @@
 Flask
+wtforms
 python-dotenv
 watson-developer-cloud
