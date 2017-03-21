@@ -34,6 +34,24 @@
 {% endif %}
 
 </p>
+{% if repeats: %}
+<br>
+<h4>Repeat Examples</h4>
+<table class="table">
+    <tr>
+        {% for example in repeats %}
+        <th>{{ example }}</th>
+        {% endfor %}
+    </tr>
+    {% for i in range(max_repeats) %}
+    <tr>
+        {% for example in repeats %}
+        <td>{{ repeats[example][i] if i < repeats[example]|length }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
 <br>
 <h4>Intents</h4>
 <table class="table">
