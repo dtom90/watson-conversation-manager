@@ -2,12 +2,14 @@ from flask import render_template, request
 from flask.views import View
 from wtforms import Form, StringField
 import conversation
-import json
 
 
 class WorkspaceView(View):
     def dispatch_request(self, workspace_id):
         workspace = conversation.workspace_info(workspace_id)
+
+        if 'err' in workspace:
+            return workspace['err']
 
         max_examples = 0
         all_examples = {}
@@ -40,7 +42,6 @@ class WorkspaceView(View):
                                                  form=test_form, utterance=utterance,
                                                  intents=intents, max_examples=max_examples,
                                                  repeats=repeats, max_repeats=max_repeats)
-
 
 class TestForm(Form):
     utterance = StringField('Utterance')

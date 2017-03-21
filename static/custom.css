@@ -17,8 +17,12 @@ body > .container {
     vertical-align: -70%
 }
 
-.table-header > th {
+th {
     font-size: 16px;
+}
+
+td.col-header {
+    font-weight: bold;
 }
 
 footer {

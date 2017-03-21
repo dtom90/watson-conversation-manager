@@ -3,10 +3,10 @@
 {% block content %}
 
 <h1>{{workspace['name']}}</h1>
-<h3><strong>Description: </strong>{{workspace['description']}}</h3>
+<h4><strong>Description: </strong>{{workspace['description']}}</h4>
 <br>
 <p>
-<h4>Test</h4>
+<h3>Test</h3>
 
 {% from "_formhelpers.html" import render_field %}
 <form class="form-inline">
@@ -37,52 +37,63 @@
 
 {% if repeats: %}
 <br>
-<h4>Repeat Examples</h4>
-<table class="table table-bordered">
+<h3>
+    <p><span class="label label-warning">Warning: these examples were found in multiple intents</span></p>
+    Repeat Examples
+</h3>
+<table data-toggle="table">
 
-    <tr class="table-header">
+    <thead>
+    <tr>
         <th>Example</th>
         {% for i in range(max_repeats) %}
         <th>Intent {{i+1}}</th>
         {% endfor %}
     </tr>
+    </thead>
 
+    <tbody>
     {% for example in repeats %}
     <tr>
-        <th>{{ example }}</th>
+        <td class="col-header">{{ example }}</td>
         {% for intent in repeats[example] %}
         <td>#{{ intent }}</td>
         {% endfor %}
     </tr>
     {% endfor %}
+    </tbody>
 
 </table>
 {% endif %}
 
 <br>
-<h4>Intents</h4>
-<table class="table">
+<h3>Intents</h3>
+<table class="table" data-toggle="table" data-pagination="true">
 
-    <tr class="table-header">
+    <thead>
+    <tr>
         <th>Intent</th>
         {% for e in range(max_examples) %}
         <th>Example {{e+1}}</th>
         {% endfor %}
     </tr>
+    </thead>
 
+    <tbody>
     {% for intent in workspace['intents'] %}
     <tr>
-        <th>{{ intent['intent'] }}</th>
+        <td class="col-header">#{{ intent['intent'] }}</td>
         {% for example in intent['examples'] %}
         <td>{{ example['text'] }}</td>
         {% endfor %}
     </tr>
     {% endfor %}
+    </tbody>
 
 </table>
 
 <br><br>
-<h4>Workspace JSON:</h4>
+<h3>Workspace JSON:</h3>
 <div class="json">
 
 </div>

@@ -1,6 +1,6 @@
 import os
 from dotenv import *
-from watson_developer_cloud import ConversationV1
+from watson_developer_cloud import ConversationV1, WatsonException
 
 load_dotenv(find_dotenv())
 
@@ -19,7 +19,14 @@ def workspaces():
 
 
 def workspace_info(workspace_id):
-    return conversation.get_workspace(workspace_id, True)
+    try:
+        return conversation.get_workspace(workspace_id, True)
+    except WatsonException as err:
+        msg = err
+        if 'unknown' in err.message.lower():
+            msg = 'Rate limit reached for get_workspace call. Please try again in a few minutes.'
+        print msg
+        return {'err': msg}
 
 
 def message(workspace_id, input_message):

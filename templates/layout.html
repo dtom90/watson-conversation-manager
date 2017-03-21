@@ -5,6 +5,7 @@
     {% block head %}
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-table.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
     <title>{% block title %}{% endblock %} | Watson Conversation Manager</title>
     {% endblock %}
@@ -41,5 +42,8 @@
     </div>
 </footer>
 
+<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap-table.min.js') }}"></script>
 </body>
 </html>
