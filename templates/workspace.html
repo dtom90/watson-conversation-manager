@@ -37,16 +37,18 @@
 {% if repeats: %}
 <br>
 <h4>Repeat Examples</h4>
-<table class="table">
-    <tr>
-        {% for example in repeats %}
-        <th>{{ example }}</th>
+<table class="table table-bordered">
+    <tr class="table-header">
+        <th>Example</th>
+        {% for i in range(max_repeats) %}
+        <th>Intent {{i+1}}</th>
         {% endfor %}
     </tr>
-    {% for i in range(max_repeats) %}
+    {% for example in repeats %}
     <tr>
-        {% for example in repeats %}
-        <td>{{ repeats[example][i] if i < repeats[example]|length }}</td>
+        <th>{{ example }}</th>
+        {% for intent in repeats[example] %}
+        <td>#{{ intent }}</td>
         {% endfor %}
     </tr>
     {% endfor %}
