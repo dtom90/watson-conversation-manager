@@ -34,16 +34,19 @@
 {% endif %}
 
 </p>
+
 {% if repeats: %}
 <br>
 <h4>Repeat Examples</h4>
 <table class="table table-bordered">
+
     <tr class="table-header">
         <th>Example</th>
         {% for i in range(max_repeats) %}
         <th>Intent {{i+1}}</th>
         {% endfor %}
     </tr>
+
     {% for example in repeats %}
     <tr>
         <th>{{ example }}</th>
@@ -52,23 +55,30 @@
         {% endfor %}
     </tr>
     {% endfor %}
+
 </table>
 {% endif %}
+
 <br>
 <h4>Intents</h4>
 <table class="table">
-    <tr>
-        {% for intent in workspace['intents'] %}
-        <th>{{ intent['intent'] }}</th>
+
+    <tr class="table-header">
+        <th>Intent</th>
+        {% for e in range(max_examples) %}
+        <th>Example {{e+1}}</th>
         {% endfor %}
     </tr>
-    {% for ex in range(max_examples) %}
+
+    {% for intent in workspace['intents'] %}
     <tr>
-        {% for intent in workspace['intents'] %}
-        <td>{{ intent['examples'][ex]['text'] if ex < intent['examples']|length }}</td>
+        <th>{{ intent['intent'] }}</th>
+        {% for example in intent['examples'] %}
+        <td>{{ example['text'] }}</td>
         {% endfor %}
     </tr>
     {% endfor %}
+
 </table>
 
 <br><br>
