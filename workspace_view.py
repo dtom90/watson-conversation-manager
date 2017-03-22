@@ -34,14 +34,12 @@ class WorkspaceView(View):
         test_form = TestForm()
 
         utterance = request.args.get('utterance')
-        test_response = conversation.message(workspace_id, utterance) if utterance else None
+        message_output = conversation.message(workspace_id, utterance) if utterance else None
 
-        intents = test_response['intents'] if utterance else None
-
-        return render_template('workspace.html', workspace=workspace,
+        return render_template('workspace.html', workspace=workspace, max_examples=max_examples,
+                                                 repeats=repeats, max_repeats=max_repeats,
                                                  form=test_form, utterance=utterance,
-                                                 intents=intents, max_examples=max_examples,
-                                                 repeats=repeats, max_repeats=max_repeats)
+                                                 message_output=message_output, )
 
 class TestForm(Form):
     utterance = StringField('Utterance')

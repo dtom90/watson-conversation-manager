@@ -14,23 +14,28 @@
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
-{% if intents: %}
+{% if message_output: %}
+<br>
 <h4>Intents from input utterance "{{utterance}}":</h4>
+{% if message_output['intents']: %}
 <table class="table table-bordered">
     <tr>
         <th class="col-md-1">Intent</th>
-        {% for intent in intents %}
+        {% for intent in message_output['intents'] %}
         <td>{{ intent['intent'] }}</td>
         {% endfor %}
     </tr>
 
     <tr>
         <th class="col-md-1">Confidence</th>
-        {% for intent in intents %}
+        {% for intent in message_output['intents'] %}
         <td>{{ intent['confidence'] }}</td>
         {% endfor %}
     </tr>
 </table>
+{% else %}
+None.
+{% endif %}
 {% endif %}
 
 </p>

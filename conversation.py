@@ -32,7 +32,6 @@ def workspace_info(workspace_id):
 
 
 def update_workspace(workspace_id):
-    print 'Getting the workspace!'
     try:
         ws = conversation.get_workspace(workspace_id, True)
         cache.set(workspace_id, ws, timeout=5 * 60)
