@@ -1,6 +1,8 @@
 import os
 from dotenv import *
 from watson_developer_cloud import ConversationV1, WatsonException
+from werkzeug.contrib.cache import SimpleCache
+cache = SimpleCache()
 
 load_dotenv(find_dotenv())
 
@@ -19,8 +21,22 @@ def workspaces():
 
 
 def workspace_info(workspace_id):
+    ws = cache.get(workspace_id)
+    if ws is None:
+        ws = update_workspace(workspace_id)
+    else:
+        min_ws = conversation.get_workspace(workspace_id)
+        if min_ws['updated'] != ws['updated']:
+            ws = update_workspace(workspace_id)
+    return ws
+
+
+def update_workspace(workspace_id):
+    print 'Getting the workspace!'
     try:
-        return conversation.get_workspace(workspace_id, True)
+        ws = conversation.get_workspace(workspace_id, True)
+        cache.set(workspace_id, ws, timeout=5 * 60)
+        return ws
     except WatsonException as err:
         msg = err
         if 'unknown' in err.message.lower():
