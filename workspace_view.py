@@ -33,13 +33,13 @@ class WorkspaceView(View):
 
         test_form = TestForm()
 
-        utterance = request.args.get('utterance')
-        message_output = conversation.message(workspace_id, utterance) if utterance else None
+        message = request.args.get('message')
+        message_output = conversation.message(workspace_id, message) if message else None
 
         return render_template('workspace.html', workspace=workspace, max_examples=max_examples,
                                                  repeats=repeats, max_repeats=max_repeats,
-                                                 form=test_form, utterance=utterance,
+                                                 form=test_form, message=message,
                                                  message_output=message_output, )
 
 class TestForm(Form):
-    utterance = StringField('Utterance')
+    message = StringField('Message')

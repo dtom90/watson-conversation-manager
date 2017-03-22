@@ -7,16 +7,16 @@
 <br>
 <p>
 <h3>Test</h3>
-
 {% from "_formhelpers.html" import render_field %}
 <form class="form-inline">
-    {{ render_field(form.utterance) }}
+    {{ render_field(form.message) }}
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
 {% if message_output: %}
 <br>
-<h4>Intents from input utterance "{{utterance}}":</h4>
+<h3>Output of message "{{message}}":</h3>
+<h4>Intents:</h4>
 {% if message_output['intents']: %}
 <table class="table table-bordered">
     <tr>
@@ -36,8 +36,9 @@
 {% else %}
 None.
 {% endif %}
+<h4>Full JSON output:</h4>
+<div id="message_output" class="json"></div>
 {% endif %}
-
 </p>
 
 {% if repeats: %}
@@ -98,15 +99,18 @@ None.
 
 <br><br>
 <h3>Workspace JSON:</h3>
-<div class="json">
-
-</div>
+<div id="workspace" class="json"></div>
 
 
 <script type="text/javascript" src="{{ url_for('static', filename='json-formatter.js') }}"></script>
 <script>
-    const myJSON = {{workspace | tojson}};
-    const formatter = new JSONFormatter(myJSON);
-    document.querySelector(".json").appendChild(formatter.render());
+    const workspace = {{ workspace | tojson }};
+    const message_output = {{ message_output | tojson }};
+
+    const workspace_formatter = new JSONFormatter(workspace);
+    const message_output_formatter = new JSONFormatter(message_output);
+
+    document.querySelector("#workspace.json").appendChild(workspace_formatter.render());
+    document.querySelector("#message_output.json").appendChild(message_output_formatter.render());
 </script>
 {% endblock %}
