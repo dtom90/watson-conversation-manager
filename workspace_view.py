@@ -2,6 +2,7 @@ from flask import render_template, request
 from flask.views import View
 from wtforms import Form, StringField
 import conversation
+import string
 
 
 class WorkspaceView(View):
@@ -21,8 +22,9 @@ class WorkspaceView(View):
             examples = intent['examples']
             max_examples = max(max_examples, len(examples))
             for example in examples:
-                orig_text = example['text']
-                sani_text = orig_text.lower()
+                orig_text = example['text'].encode('ascii', 'ignore')
+                print type(orig_text), orig_text
+                sani_text = orig_text.translate(None, string.punctuation).lower()
                 if sani_text in all_examples:
                     all_examples[sani_text][intent_name] = orig_text
                     count = len(all_examples[sani_text])
