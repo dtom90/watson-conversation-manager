@@ -1,0 +1,6 @@
+applications:
+- name: watson-conversation-manager
+  buildpack: python_buildpack
+  memory: 256M
+  services:
+    - conversation
