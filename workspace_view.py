@@ -12,22 +12,24 @@ class WorkspaceView(View):
             return workspace['err']
 
         repeat_examples = []
+
         all_examples = {}
         max_examples = 0
         max_repeats = 0
         for intent in workspace['intents']:
-            name = intent['intent']
+            intent_name = intent['intent']
             examples = intent['examples']
             max_examples = max(max_examples, len(examples))
             for example in examples:
-                text = example['text'].lower()
-                if text in all_examples:
-                    all_examples[text].append(name)
-                    count = len(all_examples[text])
-                    if count == 2: repeat_examples.append(text)
+                orig_text = example['text']
+                sani_text = orig_text.lower()
+                if sani_text in all_examples:
+                    all_examples[sani_text][intent_name] = orig_text
+                    count = len(all_examples[sani_text])
+                    if count == 2: repeat_examples.append(sani_text)
                     max_repeats = max(max_repeats, count)
                 else:
-                    all_examples[text] = [name]
+                    all_examples[sani_text] = {intent_name: orig_text}
 
         repeats = {ex: all_examples[ex] for ex in repeat_examples}
 

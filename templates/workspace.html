@@ -62,7 +62,10 @@ None.
     <tr>
         <td class="col-header">{{ example }}</td>
         {% for intent in repeats[example] %}
-        <td>#{{ intent }}</td>
+        <td>
+            <strong>#{{ intent }}</strong><br>
+              example: "{{ repeats[example][intent] }}"
+        </td>
         {% endfor %}
     </tr>
     {% endfor %}
