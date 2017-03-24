@@ -36,7 +36,7 @@
 {% else %}
 None.
 {% endif %}
-<h4>Full JSON output:</h4>
+<h4>Full Output JSON:</h4>
 <div id="message_output" class="json"></div>
 {% endif %}
 </p>
@@ -104,13 +104,14 @@ None.
 
 <script type="text/javascript" src="{{ url_for('static', filename='json-formatter.js') }}"></script>
 <script>
-    const workspace = {{ workspace | tojson }};
-    const message_output = {{ message_output | tojson }};
+    const json_data = {
+        'workspace': {{ workspace | tojson }},
+        'message_output': {{ message_output | tojson }}
+    };
 
-    const workspace_formatter = new JSONFormatter(workspace);
-    const message_output_formatter = new JSONFormatter(message_output);
-
-    document.querySelector("#workspace.json").appendChild(workspace_formatter.render());
-    document.querySelector("#message_output.json").appendChild(message_output_formatter.render());
+    for (var v in json_data) {
+      var json_formatter = new JSONFormatter(json_data[v]);
+      document.querySelector("#"+v+".json").appendChild(json_formatter.render());
+    }
 </script>
 {% endblock %}
