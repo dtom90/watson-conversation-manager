@@ -1,9 +1,12 @@
 import os
 import conversation
 from flask import Flask, render_template, url_for
+from flask_sslify import SSLify
 from workspace_view import WorkspaceView
 
+
 app = Flask(__name__)
+sslify = SSLify(app)
 
 
 @app.route('/')
@@ -29,4 +32,4 @@ def dated_url_for(endpoint, **values):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

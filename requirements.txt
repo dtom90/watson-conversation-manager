@@ -1,4 +1,5 @@
 Flask
+Flask-SSLify
 wtforms
 python-dotenv
 watson-developer-cloud

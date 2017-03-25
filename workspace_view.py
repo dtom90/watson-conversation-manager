@@ -7,6 +7,8 @@ import string
 
 class WorkspaceView(View):
     def dispatch_request(self, workspace_id):
+
+        # Get the workspace JSON in dictionary form
         workspace = conversation.workspace_info(workspace_id)
 
         if 'err' in workspace:
