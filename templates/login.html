@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+
+    {% if session['logged_in'] %}
+        <p>You're logged in already!</p>
+    {% else %}
+
+        <h1>Log in</h1>
+
+        <form action="/login" method="POST">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="username" name="username" class="form-control" id="username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" class="form-control" id="password">
+            </div>
+            <button type="submit" class="btn btn-default btn-large">Log in</button>
+        </form>
+
+    {% endif %}
+
+{% endblock %}

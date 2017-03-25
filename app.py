@@ -1,17 +1,31 @@
 import os
 import conversation
-from flask import Flask, render_template, url_for
+from flask import Flask, request, session, flash, redirect, render_template, url_for
 from flask_sslify import SSLify
 from workspace_view import WorkspaceView
 
 
 app = Flask(__name__)
 sslify = SSLify(app)
+app.config['SESSION_TYPE'] = 'memcached'
+app.config['SECRET_KEY'] = 'super secret key'
 
 
 @app.route('/')
-def index():
-    return render_template('home.html', workspaces=conversation.workspaces())
+def home():
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        return render_template('home.html', workspaces=conversation.workspaces())
+
+
+@app.route('/login', methods=['POST'])
+def do_admin_login():
+    if request.form['password'] == 'password' and request.form['username'] == 'admin':
+        session['logged_in'] = True
+    else:
+        flash('wrong password!', 'danger')
+    return redirect(url_for('home'))
 
 
 app.add_url_rule('/workspace/<workspace_id>', view_func=WorkspaceView.as_view('workspace'))
