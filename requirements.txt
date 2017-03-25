@@ -2,3 +2,4 @@ Flask
 wtforms
 python-dotenv
 watson-developer-cloud
+gunicorn==19.6.0
