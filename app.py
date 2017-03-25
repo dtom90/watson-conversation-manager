@@ -28,6 +28,12 @@ def do_admin_login():
     return redirect(url_for('home'))
 
 
+@app.route("/logout")
+def logout():
+    session['logged_in'] = False
+    return redirect(url_for('home'))
+
+
 app.add_url_rule('/workspace/<workspace_id>', view_func=WorkspaceView.as_view('workspace'))
 
 
