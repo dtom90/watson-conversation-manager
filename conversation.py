@@ -9,18 +9,18 @@ if 'VCAP_SERVICES' in os.environ:
     import json
     vcap_services = json.loads(os.environ['VCAP_SERVICES'])
     conversation_creds = vcap_services['conversation'][0]['credentials']
-    CONVERSATION_USERNAME = conversation_creds['username']
-    CONVERSATION_PASSWORD = conversation_creds['password']
+    USERNAME = conversation_creds['username']
+    PASSWORD = conversation_creds['password']
 else:
     from dotenv import load_dotenv, find_dotenv
     load_dotenv(find_dotenv())
-    CONVERSATION_USERNAME = os.environ.get("CONVERSATION_USERNAME")
-    CONVERSATION_PASSWORD = os.environ.get("CONVERSATION_PASSWORD")
+    USERNAME = os.environ.get("CONVERSATION_USERNAME")
+    PASSWORD = os.environ.get("CONVERSATION_PASSWORD")
 
 # Set conversation service
 conversation = ConversationV1(
-    username=CONVERSATION_USERNAME,
-    password=CONVERSATION_PASSWORD,
+    username=USERNAME,
+    password=PASSWORD,
     version='2017-02-03'
 )
 

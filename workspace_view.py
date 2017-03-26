@@ -25,7 +25,6 @@ class WorkspaceView(View):
             max_examples = max(max_examples, len(examples))
             for example in examples:
                 orig_text = example['text'].encode('ascii', 'ignore')
-                print type(orig_text), orig_text
                 sani_text = orig_text.translate(None, string.punctuation).lower()
                 if sani_text in all_examples:
                     all_examples[sani_text][intent_name] = orig_text

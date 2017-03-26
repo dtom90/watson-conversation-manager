@@ -21,7 +21,7 @@ def home():
 
 @app.route('/login', methods=['POST'])
 def do_admin_login():
-    if request.form['password'] == 'password' and request.form['username'] == 'admin':
+    if request.form['username'] == conversation.USERNAME and request.form['password'] == conversation.PASSWORD:
         session['logged_in'] = True
     else:
         flash('wrong password!', 'danger')
@@ -52,4 +52,4 @@ def dated_url_for(endpoint, **values):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=('DEBUG' in os.environ and bool(os.environ['DEBUG'])))
