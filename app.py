@@ -21,11 +21,21 @@ def home():
 
 @app.route('/login', methods=['POST'])
 def do_admin_login():
-    if request.form['username'] == conversation.USERNAME and request.form['password'] == conversation.PASSWORD:
+    if valid_creds():
         session['logged_in'] = True
     else:
         flash('wrong password!', 'danger')
     return redirect(url_for('home'))
+
+
+def valid_creds():
+    if 'USERNAME' in os.environ and 'PASSWORD' in os.environ:
+        username = os.environ['USERNAME']
+        password = os.environ['PASSWORD']
+    else:
+        username = conversation.USERNAME
+        password = conversation.PASSWORD
+    return request.form['username'] == username and request.form['password'] == password
 
 
 @app.route("/logout")
